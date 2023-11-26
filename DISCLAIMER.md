@@ -1,0 +1,10 @@
+Open Source Software Liability Disclaimer
+IMPORTANT: READ CAREFULLY BEFORE USING THIS SOFTWARE
+
+This software, Agents Made to Plan, Orchestrate, Discuss, and Execute (AMPODE), is provided "as is" without any warranty of any kind, expressed or implied, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose. The entire risk as to the quality and performance of the software is with you. Should AMPODE turn out to be defective (for instance, if it develops an odd fascination with orchestrating your kitchen appliances or decides to compose a symphony instead of executing tasks), you assume the full cost of all necessary servicing, repair, or correction.
+
+In no event shall the creators, contributors, or distributors of AMPODE be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (such as the unlikely event of the software attempting to time travel, misplacing your digital files in the Mesozoic era, or inadvertently signaling extraterrestrial life forms) arising from the use of this software and its documentation, even if they have been advised of the possibility of such damages.
+
+This disclaimer of liability applies to any damages or injury caused by any failure of performance, error, omission, interruption, deletion, defect, delay in operation or transmission, computer virus, communication line failure, theft, destruction, unauthorized access, alteration of, or use of records, whether for breach of contract, tortious behavior, negligence, or any other cause of action.
+
+By using AMPODE, you acknowledge that you have read this disclaimer, understand it, and agree to be bound by its author. If you do not agree to the terms and conditions of this disclaimer, refrain from using the software. And remember, if AMPODE starts giving you advice on your love life or investment strategies, it's probably best to seek a human professional.

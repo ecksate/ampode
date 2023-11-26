@@ -32,3 +32,7 @@ GroupPlanning.py
 
 ### Usage
 ```python GroupPlanning.py initial_state.json llm_config.json```
+
+
+### Dislaimer
+The author of this repo and any contributors bear no repsonsibility for it's use or misuse see DISCLAIMER.md
