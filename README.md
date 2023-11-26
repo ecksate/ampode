@@ -36,7 +36,7 @@ GroupPlanning.py
 - ```pip install -r requirements.txt```
 
 ### Usage
-```python GroupPlanning.py initial_state.json llm_config.json```
+```python src/GroupPlanning.py initial_state.json llm_config.json```
 
 
 ### Disclaimer 
