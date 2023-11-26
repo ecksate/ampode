@@ -2,7 +2,7 @@
 Agents Made to Plan, Orchestrate, Discuss, and Execute
 
 ### Introduction
-AMPODE is a software module designed to allow a system of agents autonomously plan, orchestrate, and execute a dynamic series of tasks to reach an end goal provided by the user.  AMPODE hopes to harness language models' existing ability to parrot human processes in problem-solving and strategic planning in a lightweight framework that couples together a state machine and a purpose-made system of agents into a self-evolving decision-making mechanism.
+AMPODE is a software module designed to allow a system of agents to autonomously plan, orchestrate, and execute a dynamic series of tasks to reach an end goal provided by the user.  AMPODE hopes to harness language models' existing ability to parrot human processes in problem-solving and strategic planning in a lightweight framework that couples together a state machine and a purpose-made system of agents into a self-evolving decision-making mechanism.
 
 What will hopefully make AMPODE function is good alignment between
 - group chat orchestration
