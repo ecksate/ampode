@@ -38,5 +38,12 @@ GroupPlanning.py
 ### Usage
 ```python src/GroupPlanning.py initial_state.json llm_config.json```
 
+### How it operates
+See initial_state.json for some idea
+and observe these responses from preliminary testing
+- https://rentry.co/z8edam
+- https://rentry.co/qanc7y
+
+
 ### Disclaimer 
 The author of this repo and any contributors bear no responsibility for it's use or misuse see DISCLAIMER.md
