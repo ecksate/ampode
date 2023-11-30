@@ -283,8 +283,7 @@ if __name__ == "__main__":
                                                                 )]
                                             )]
                       )]
-    )
-
+                  )
 
     # print(task)
     # print("\n\n\n\n")
@@ -294,8 +293,26 @@ if __name__ == "__main__":
     # # add a task
     # task.update_task({'Task7': 'TestTask("Task3", "Goal 3", {"Role 1": "Instructions 1", "Role 2": "Instructions 2"})'})
     # # Update Role 1's instructions in Task3
-    # task.update_task({'Task2.Task3.participants': '{"User1":"New Instructions11111111111111111111111111111111111111111111111"}'})
+    # task.update_task({'Task2.Task3.participants': '{"User1":"New Instructions111111111111111"}'})
   
     # print(task)
 
+
+    # Example of what a universal root task might look like, see if you can get agents to drive it
+    # the RootTask is the task that the user wants to accomplish, and it starts with an initial task of planning the task hierarchy
+
+    # RootTask = TestTask("Fullfill_Request", 
+    #                     "Fullfill the user's request: {user_request}",
+    #                     {},
+    #                     sub_tasks=[TestTask("Analyze_Request", "We want the Task hierarchy to be populated with a plan to satisfy the given request.",
+    #                                         {
+    #                                             "Task_Analyzer": "Analyze the given request, identify key goals and roles with relevant expertise.", 
+    #                                             "Workflow_Planner": "Based on the analysis, propose a set of update_task calls that instruct the team to accomplish the goal."
+    #                                         }
+    #                                       )
+    #                               ]
+    #                   )
+
     task.run()
+
+
