@@ -34,7 +34,7 @@ Task.py
 ### Usage
 Test it out with TestTask.  Look in the main function, you can either interact with the module in a chat as just a user like you are the agent or you can test the functions for updating state.  Both of these are extremely boring and the actual point is to create a module that inherits Task and incoorporates whatever language model related software you might be running your agents in.
 
-```python src/Task.py```
+```python Task.py```
 
 ### Some example responses
 See initial_state.json for some idea
