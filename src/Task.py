@@ -10,7 +10,7 @@ agent_callable_functions = [
 
 
 class Task(ABC):
-    def __init__(self, name: str, goal: str, participants: Dict[str, str], sub_tasks: Optional[List['Task']] = None):
+    def __init__(self, name: str, goal: str, participants: Dict[str, str], sub_tasks: Optional[List['Task']] = None, current_sub_task: Optional[str] = None):
         """
         Initializes a new Task object.
 
@@ -19,13 +19,13 @@ class Task(ABC):
             goal (str): The goal or objective of the task.
             participants (Dict[str, str]): A dictionary mapping role names to their instructions.
             sub_tasks (Optional[List[Task]]): An optional list of sub-tasks, for when this task needs to be broken down into smaller tasks.
-            current_sub_task (Optional[Task]): An optional current sub-task.
+            current_sub_task (Optional[str]): An optional current sub-task. Deprecated, in favor of making the current sub-task the first sub-task in the list of sub-tasks.
         """
         self.name = name
         self.goal = goal
         self.participants = participants
         self.sub_tasks = sub_tasks if sub_tasks else []
-        self.current_sub_task = None if not sub_tasks else sub_tasks[0]
+        self.current_sub_task = None if not sub_tasks else sub_tasks[0].name
         self.completed = False
 
     def _update_task(self, name: Optional[str] = None, goal: Optional[str] = None, participants: Optional[Dict[str, str]] = None, tasks:Optional[List['Task']] = None ) -> None:
@@ -133,18 +133,21 @@ class Task(ABC):
         Recursively identifies the current active sub-task.
 
         Returns:
-            Task: The current active sub-task or self if it's the active task.
+            Task: The current sub-task or self if this task has no sub-tasks.
         """
-        if not self.completed and self.sub_tasks:
+        if len(self.sub_tasks) == 0 or self.current_sub_task is None:
+            return self
+        else:
             for sub_task in self.sub_tasks:
-                current = sub_task.get_current_task()
-                if current != sub_task:
-                    return current
-        return self
+                if sub_task.name == self.current_sub_task:
+                    return sub_task.get_current_task()
 
-    def generate_prompt(self) -> Dict[str, str]:
+    def generate_prompt(self,terminal_goal) -> Dict[str, str]:
         """
         Generates and returns prompts for each participant in current task.
+
+        Args:
+            terminal_goal (str): The terminal goal of the task, which is the goal that the user wants to accomplish.
 
         Returns:
             Dict[str, str]: A dictionary mapping participant names to prompts.
@@ -153,7 +156,7 @@ class Task(ABC):
         prompts = {}
         for participant,instructions in current_task.participants.items():
             prompt =  "You are an AI assistant taking the role of " + participant + " in a team that is working to accomplish a goal.\n"
-            prompt += "The terminal goal is " + self.goal +"\n"
+            prompt += "The terminal goal is " + terminal_goal +"\n"
             prompt += "The current goal is: " + current_task.goal + ".\n"
             prompt += "Your instructions are: " + instructions + ".\n"
             prompt += "Accomplish the goal through discussion and agent callable functions.\n"
@@ -202,10 +205,12 @@ class Task(ABC):
                 parameters = signature.parameters
 
                 return_type = signature.return_annotation
+                if return_type == inspect.Signature.empty:
+                    return_type = "None"
 
                 header = f"def {name}("
                 for i, (param_name, param) in enumerate(parameters.items()):
-                    header += f"{param_name}: {type_hints[param_name]}, "
+                    header += f"{param_name}: {type_hints[param_name].__name__}, "
 
                 # Remove the last comma and space
                 header = header[:-2]
@@ -238,19 +243,20 @@ class Task(ABC):
         return f"Task: {self.name}\nGoal: {self.goal}\nParticipants: {self.participants}\nSub Tasks: {sub_task_names}\nCurrent Sub Task: {self.current_sub_task}\nCompleted: {self.completed}"
 
 class TestTask(Task):
-    def __init__(self, name: str, goal: str, participants: Dict[str, str], sub_tasks: Optional[List[Task]] = None):
-        super().__init__(name, goal, participants, sub_tasks)
+    def __init__(self, name: str, goal: str, participants: Dict[str, str], sub_tasks: Optional[List[Task]] = None, current_sub_task: Optional[str] = None):
+        super().__init__(name, goal, participants, sub_tasks, current_sub_task)
 
     def run(self):
         """
         Runs the task.
         """
         while not self.completed:
-            prompts = self.generate_prompt()
+            prompts = self.get_current_task().generate_prompt(self.goal)
             system_message = self.generate_system_message()
+
             for participant, prompt in prompts.items():
               # Send the messages to the user and prompt for a response
-              response = input(self.generate_system_message() + "\n" + prompts[participant] + "\n")
+              response = input(system_message + "\n" + prompts[participant] + "\n")
               # Find the last code block in the response
               code_block = response.split("```")[-2]
               # Split the code block into lines
@@ -301,18 +307,19 @@ if __name__ == "__main__":
     # Example of what a universal root task might look like, see if you can get agents to drive it
     # the RootTask is the task that the user wants to accomplish, and it starts with an initial task of planning the task hierarchy
 
-    # RootTask = TestTask("Fullfill_Request", 
-    #                     "Fullfill the user's request: {user_request}",
-    #                     {},
-    #                     sub_tasks=[TestTask("Analyze_Request", "We want the Task hierarchy to be populated with a plan to satisfy the given request.",
-    #                                         {
-    #                                             "Task_Analyzer": "Analyze the given request, identify key goals and roles with relevant expertise.", 
-    #                                             "Workflow_Planner": "Based on the analysis, propose a set of update_task calls that instruct the team to accomplish the goal."
-    #                                         }
-    #                                       )
-    #                               ]
-    #                   )
+    RootTask = TestTask("Fullfill_Request", 
+                        "Fullfill the user's request: {user_request}",
+                        {},
+                        current_sub_task="Analyze_Request",
+                        sub_tasks=[TestTask("Analyze_Request", "We want the Task hierarchy to be populated with a plan to satisfy the given request.",
+                                            {
+                                                "Task_Analyzer": "Analyze the given request, identify key goals and roles with relevant expertise.", 
+                                                "Workflow_Planner": "Based on the analysis, propose a set of update_task calls that instruct the team to accomplish the goal."
+                                            }
+                                          )
+                                  ]
+                      )
 
-    task.run()
+    RootTask.run()
 
 
