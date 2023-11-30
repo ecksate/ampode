@@ -3,18 +3,17 @@
 
 ### Introduction
 
-AMPODE is a software module designed to allow a system of agents to autonomously plan, orchestrate, and execute a dynamic series of tasks to reach an end goal provided by the user.  AMPODE hopes to harness language models' existing ability to parrot human  problem-solving and strategic planning in a lightweight framework that couples together a state machine and a purpose-made system of agents into a self-evolving decision-making mechanism.
+The concept is an n-tree of Task nodes, each with the values required to prompt a group chat of various roles to complete an action or produce an artifact and then update it's own Task hierarchy using function calling.  This structure is meant to allow your agents to create their own plan and follow it, so the initial state of the module is an instruction to form a plan by updating the data structure in pursuit of the user's goal.  How this would be best implemented into an agent or system of agents is an area ripe for exploration, therefore it is provided as an abstract class for you to inherit and add logic to.  The Task module is able to generate function call headers for the system message dynamically, making it easy to extend.  The update_task method should currently handle arbitrary string properties already.
 
-What will hopefully make AMPODE function well is good alignment between the data structure, the prompt, and the language model.
+If the minimal concept works, and agents are able to create plans and guide themselves through it with this simple tree of Turing tape, there are many possibilities for extending its usage including memory, web access, code execution, etc.
 
-Hopefully a framework similar to this could
-- naturally perform task decomposition
-- explore a non-linear flow through states (non-linear problem solving)
-- store artifacts (task output) that evolve as the plan progresses
-- interact with it's environment such as
-  - a data store
-  - code execution environment
-  - the web / apis
+This structure has the following benefits:
+ - allows task decomposition anywhere in the structure
+ - allows non-linear plans
+ - allows parallel execution
+ - highly scalable structure
+ - decouples the size of your plan from the size of the context window
+ - flexible: bring your own agent, bring your own logic
 
 ### Components
 Task.py
