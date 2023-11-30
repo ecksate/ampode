@@ -37,18 +37,15 @@ Test it out with TestTask.  Look in the main function, you can either interact w
 ```python Task.py```
 
 ### Some example responses
-See initial_state.json for some idea
-and observe these responses from preliminary testing
+Here are some responses from preliminary testing (different code/prompt), where I wanted to confirm that sometimes the agent could update it's own plan
 - https://rentry.co/z8edam
 - https://rentry.co/qanc7y
 
 
 # History
 
-
 v0.0.1:
   Yeeted the idea out there, it was three files, :ok:
-
 
 v0.0.2:
   It's now a single abstract class for you to inherit and implement your own agent of choice.  At this point I realized my project is essentially the tape in a Turing machine and that it was a very small conceptual leap from this to a Markov chain tree generator which might also be useful for automatically generating options for Q-learning maybe idk
