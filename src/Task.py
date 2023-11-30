@@ -10,7 +10,7 @@ agent_callable_functions = [
 
 
 class Task(ABC):
-    def __init__(self, name: str, goal: str, participants: Dict[str, str], sub_tasks: Optional[List['Task']] = None, current_sub_task: Optional[str] = None):
+    def __init__(self, name: str, goal: str, participants: Dict[str, str], sub_tasks: Optional[List['Task']] = None, current_sub_task: Optional[str] = None) -> None:
         """
         Initializes a new Task object.
 
@@ -205,8 +205,7 @@ class Task(ABC):
                 parameters = signature.parameters
 
                 return_type = signature.return_annotation
-                if return_type == inspect.Signature.empty:
-                    return_type = "None"
+
 
                 header = f"def {name}("
                 for i, (param_name, param) in enumerate(parameters.items()):
@@ -242,8 +241,18 @@ class Task(ABC):
 
         return f"Task: {self.name}\nGoal: {self.goal}\nParticipants: {self.participants}\nSub Tasks: {sub_task_names}\nCurrent Sub Task: {self.current_sub_task}\nCompleted: {self.completed}"
 
-class TestTask(Task):
-    def __init__(self, name: str, goal: str, participants: Dict[str, str], sub_tasks: Optional[List[Task]] = None, current_sub_task: Optional[str] = None):
+class TestTask(Task): 
+    def __init__(self, name: str, goal: str, participants: Dict[str, str], sub_tasks: Optional[List[Task]] = None, current_sub_task: Optional[str] = None) -> None:
+        """
+        Initializes a new Task object.
+
+        Args:
+            name (str): The name of the task.
+            goal (str): The goal or objective of the task.
+            participants (Dict[str, str]): A dictionary mapping role names to their instructions.
+            sub_tasks (Optional[List[Task]]): An optional list of sub-tasks, for when this task needs to be broken down into smaller tasks.
+            current_sub_task (Optional[str]): An optional current sub-task. Deprecated, in favor of making the current sub-task the first sub-task in the list of sub-tasks.
+        """
         super().__init__(name, goal, participants, sub_tasks, current_sub_task)
 
     def run(self):
