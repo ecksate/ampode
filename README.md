@@ -1,35 +1,33 @@
-# ampode
-Agents Made to Plan, Orchestrate, Discuss, and Execute
+# AMPODE
+**Agents Made to Plan, Orchestrate, Discuss, and Execute**
 
 ### Introduction
-AMPODE is a software module designed to allow a system of agents autonomously plan, orchestrate, and execute a dynamic series of tasks to reach an end goal provided by the user.  AMPODE hopes to harness language models' existing ability to parrot human processes in problem-solving and strategic planning in a lightweight framework that couples together a state machine and a purpose-made system of agents into a self-evolving decision-making mechanism.
 
-What will hopefully make AMPODE function is good alignment between
-- group chat orchestration
-- dynamic prompting
-- the model's reliability in responding with 
-  - proper intent 
-  - proper function calling
+AMPODE is a software module designed to allow a system of agents to autonomously plan, orchestrate, and execute a dynamic series of tasks to reach an end goal provided by the user.  AMPODE hopes to harness language models' existing ability to parrot human  problem-solving and strategic planning in a lightweight framework that couples together a state machine and a purpose-made system of agents into a self-evolving decision-making mechanism.
 
-Hopefully a framework like this could
-- expand to give access and awareness to agents to
-  - local data access
-  - web access
-  - code execution environment
-- expand to store goal/response related artifacts that can be used as input and output or dependencies between states and evolved as the states progress
+What will hopefully make AMPODE function well is good alignment between the data structure, the prompt, and the language model.
+
+Hopefully a framework similar to this could
 - naturally perform task decomposition
-- be allowed to explore a non-linear flow through states (non-linear problem solving)
+- explore a non-linear flow through states (non-linear problem solving)
+- store artifacts (task output) that evolve as the plan progresses
+- interact with it's environment such as
+  - a data store
+  - code execution environment
+  - the web / apis
 
 ### Components
 Task.py
 - It's a recursive tree of Goals, Participants, and Instructions. 
 - It can generate a system message and a set of instructions for each participant based on the state (current_task)
-- It automatically generates function headers from itself that go into the system message
-- It handles the extremely annoying task of updating any task in the hierarchy
+- It automatically generate function headers from itself that go into the system message
+- It handles the extremely annoying job of updating any task in the hierarchy
 
-### Dependencies
+## Dependencies
+
 - Local text generation api or an OpenAI API Key
 - ```pip install -r requirements.txt```
+
 
 ### Usage
 Test it out with TestTask.  Look in the main function, you can either interact with the module in a chat as just a user like you are the agent or you can test the functions for updating state.  Both of these are extremely boring and the actual point is to create a module that inherits Task and incoorporates whatever language model related software you might be running your agents in.
