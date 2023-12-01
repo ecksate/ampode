@@ -1,9 +1,12 @@
 # AMPODE
 **Agents Made to Plan, Orchestrate, Discuss, and Execute**
 
+Finally found the place where this was already implemented fully + more
+https://github.com/microsoft/semantic-kernel/blob/main/python/semantic_kernel/planning/plan.py
+
 ### Introduction
 
-The concept is an n-tree of Task nodes, each with the values required to prompt a group chat of various roles to complete an action or produce an artifact and then update it's own Task hierarchy using function calling.  This structure is meant to allow your agents to create their own plan and follow it, with the initial state of the module being an instruction to form a plan by updating the data structure in pursuit of the user's goal, and the operation continue with the first task created in the plan.
+The concept is an n-tree of Task nodes, each with the values (and methods) required to prompt a group chat of various roles to complete an action or produce an artifact and then update it's own Task hierarchy using function calling.  This structure is meant to allow your agents to create their own plan and follow it, with the initial state of the module being an instruction to form a plan by updating the data structure in pursuit of the user's goal, and the operation continues with the first task created in the plan.
 
 How this would be best implemented into an agent or system of agents is an area ripe for exploration, therefore it is provided as an abstract class for you to inherit and add logic to.  The Task module is able to generate function call headers for the system message dynamically, making it easy to extend.  The update_task method handles arbitrary  properties (probably only works for simple values like int and str, etc, but not list or dicts, etc.)
 
