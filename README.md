@@ -1,7 +1,7 @@
 # AMPODE
 **Agents Made to Plan, Orchestrate, Discuss, and Execute**
 
-Finally found the place where this was already implemented fully + more
+Finally found the place where this concept was basically fully implemented
 https://github.com/microsoft/semantic-kernel/blob/main/python/semantic_kernel/planning/plan.py
 
 ### Introduction
